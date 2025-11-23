@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= test.title %> | AlphaTest</title>
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="/css/dashboard.css"/>
+  <link rel="stylesheet" href="/css/nav.css" />
+
+</head>
+
+<body>
+
+  <div class="top-nav">
+    <a href="/dashboard" class="nav-btn">Dashboard</a>
+    <a href="/testcases" class="nav-btn">All Test Cases</a>
+    <a href="/logout" class="nav-btn logout">Logout</a>
+  </div>
+
+  <div class="details-container">
+
+    <h1 class="details-title"><%= test.title %></h1>
+    <p class="details-date">Created: <%= test.createdAt.toLocaleString() %></p>
+
+    <div class="details-section">
+      <span class="details-label">Description:</span>
+      <div class="details-box"><%= test.description %></div>
+    </div>
+
+    <div class="details-section">
+      <span class="details-label">Steps:</span>
+      <div class="details-box"><%= test.steps %></div>
+    </div>
+
+    <div class="details-section">
+      <span class="details-label">Expected Result:</span>
+      <div class="details-box"><%= test.expectedResult %></div>
+    </div>
+
+    <a href="/testcases/<%= test._id %>/edit" class="edit-btn">Edit</a>
+
+
+    <div class="details-buttons">
+      <form action="/testcases/<%= test._id %>/delete" method="POST" onsubmit="return confirm('Are you sure?')">
+        <button class="btn btn-delete">Delete</button>
+      </form>
+      <a href="/testcases" class="btn btn-back">Back</a>
+    </div>
+
+  </div>
+
+</body>
+</html>

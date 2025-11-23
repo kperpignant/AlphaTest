@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Test Cases | AlphaTest</title>
+  <link rel="stylesheet" href="css/dashboard.css" />
+  <link rel="stylesheet" href="css/nav.css" />
+</head>
+
+<body>
+
+  <div class="container">
+
+    <header class="top-bar">
+      <h1>Test Cases</h1>
+
+      <div class="top-nav">
+        <a href="/dashboard" class="nav-btn">Dashboard</a>
+        <a href="/create-testcase" class="nav-btn">New Test Case</a>
+        <a href="/logout" class="nav-btn logout">Logout</a>
+      </div>
+
+      <div class="user-info">
+        <span>Logged in as <%= user.username %></span>
+      </div>
+    </header>
+
+    <main>
+
+      <a href="/create-testcase" class="btn primary">+ New Test Case</a>
+
+      <div class="filters">
+        <a href="/testcases?sort=createdAt">Newest</a>
+        <a href="/testcases?sort=status">By Status</a>
+      </div>
+
+      <div class="list-container">
+
+        <% if (cases.length === 0) { %>
+
+          <p>No test cases found.</p>
+
+        <% } else { %>
+
+          <table class="tc-table">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Status</th>
+                <th>Created</th>
+                <th></th> <!-- actions column -->
+              </tr>
+            </thead>
+
+            <tbody>
+              <% cases.forEach(tc => { %>
+                <tr>
+
+                  <td>
+                    <a href="/testcases/<%= tc._id %>"><%= tc.title %></a>
+                  </td>
+
+                  <td><%= tc.description.substring(0, 80) %>...</td>
+
+                  <td>
+                    <span class="status <%= tc.status.toLowerCase() %>">
+                      <%= tc.status %>
+                    </span>
+                  </td>
+
+                  <td><%= tc.createdAt.toLocaleDateString() %></td>
+
+                  <td>
+                    <a href="/testcases/<%= tc._id %>" class="view-btn">View</a>
+                  </td>
+
+                </tr>
+              <% }); %>
+            </tbody>
+
+          </table>
+
+        <% } %>
+
+      </div>
+
+    </main>
+
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,32 @@
+.top-nav {
+  background: #1f1f2e;
+  padding: 10px 20px;
+  display: flex;
+  gap: 15px;
+}
+
+.nav-btn {
+  color: white;
+  text-decoration: none;
+  padding: 8px 12px;
+  background: #343454;
+  border-radius: 6px;
+  transition: 0.2s;
+}
+
+.nav-btn:hover {
+  background: #4d4d72;
+}
+
+.logout {
+  background: #a94444;
+}
+
+.logout:hover {
+  background: #c65656;
+}
+
+.content {
+  padding: 30px;
+  color: white;
+}

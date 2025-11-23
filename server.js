@@ -1,57 +1,52 @@
-///----------CHAT GPT HELPED SET THIS UP-----------///
-require('dotenv').config();
-const path = require("path");
+//necessary declarations to get things working
+
+require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
+const session = require("express-session");
+const flash = require("connect-flash");
+const passport = require("passport");
+const path = require("path");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
 const app = express();
+
+// Middleware that is supplementary and helps
 app.use(cors());
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 
-//Connect to MongoDB
-mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-.then(() => console.log("MongoDB Atlas connected"))
-.catch(err => console.log(err));
+// Connect MongoDB
+mongoose
+  .connect(process.env.MONGO_URI)
+  .then(() => console.log("MongoDB connected"))
+  .catch((err) => console.log(err));
 
-//Define schema + model
-const testCaseSchema = new mongoose.Schema({
-  title: String,
-  description: String,
-  steps: String,
-  expectedResult: String,
-  createdAt: { type: Date, default: Date.now }
-});
+// EJS
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
 
-const TestCase = mongoose.model("TestCase", testCaseSchema);
+// Sessions
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+app.use(flash());
 
-//Route to create a test case
-app.post("/api/testcases", async (req, res) => {
-  try {
-    const { title, description, steps, expectedResult } = req.body;
-    const newCase = new TestCase({ title, description, steps, expectedResult });
-    await newCase.save();
-    res.json({ success: true, message: "Test case saved!" });
-  } catch (err) {
-    res.status(500).json({ success: false, error: err.message });
-  }
-});
+// Passport
+require("./config/passport")(passport);
+app.use(passport.initialize());
+app.use(passport.session());
 
-//Route to get all test cases
-app.get("/api/testcases", async (req, res) => {
-  const cases = await TestCase.find().sort({ createdAt: -1 });
-  res.json(cases);
-});
+// Routes
+app.use("/", require("./routes/main"));
+app.use("/api", require("./routes/api"));
 
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "create-testcase.html"));
-});
-
-//Start server
+// Server
 const PORT = 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

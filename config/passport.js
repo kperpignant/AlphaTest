@@ -1,6 +1,6 @@
 // config/passport.js
 const LocalStrategy = require('passport-local').Strategy;
-const User = require('../app/models/user');
+const User = require('../models/User');
 
 module.exports = function(passport) {
 
@@ -25,21 +25,28 @@ module.exports = function(passport) {
     // asynchronous
     process.nextTick(function() {
 
-      User.findOne({ 'local.email' :  email }, function(err, user) {
+      User.findOne({
+        $or: [
+        { 'local.email' :  email },
+        { 'local.username': req.body.username }
+      ] 
+    }, function(err, user) {
         if (err) return done(err);
 
         // check if user already exists
         if (user) {
-          return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
+          return done(null, false, req.flash('signupMessage', 'That email or usernmae is already taken.'));
         } else {
+          
           // create the user
           const newUser = new User();
+          newUser.local.username = req.body.username;
           newUser.local.email = email;
           newUser.local.password = newUser.generateHash(password);
 
           newUser.save(function(err) {
             if (err) throw err;
-            console.log(`Created user: ${email}`);
+            console.log(`Created user: ${email} ${newUser.local.username}`);
             return done(null, newUser);
           });
         }

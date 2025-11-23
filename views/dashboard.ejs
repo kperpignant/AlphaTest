@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard | AlphaTest</title>
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous"
+    />
+
+    <!-- Your dashboard CSS -->
+    <link rel="stylesheet" href="css/dashboard.css" />
+    <link rel="stylesheet" href="/css/nav.css" />
+</head>
+<body>
+
+    <!-- Top Navbar -->
+    <header class="topbar">
+        <div class="topbar-left">
+            <h2 class="logo">AlphaTest</h2>
+        </div>
+
+        <div class="topbar-center">
+            <input type="text" placeholder="Search test cases..." class="search-input" />
+        </div>
+
+        <div class="top-nav">
+  <a href="/dashboard" class="nav-btn">Dashboard</a>
+  <a href="/testcases" class="nav-btn">Test Cases</a>
+  <a href="/create-testcase" class="nav-btn">New Test Case</a>
+  <a href="/logout" class="nav-btn logout">Logout</a>
+</div>
+
+    </header>
+
+    <!-- Main Wrapper -->
+    <div class="wrapper">
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-search">
+                <input type="text" placeholder="Search..." />
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="/dashboard"><i class="fa-solid fa-table-list"></i> Dashboard</a>
+                <a href="/TestCase"><i class="fa-solid fa-plus"></i> Create Test Case</a>
+                <a href="/testcases"><i class="fa-solid fa-database"></i> All Test Cases</a>
+            </nav>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="content">
+            <h1>Welcome, <%= user.local.username %>!</h1>
+            <p>Select an option from the sidebar to get started.</p>
+
+            <section class="dashboard-cards">
+
+                <div class="card">
+                    <h3>Create New Test Case</h3>
+                    <p>Quickly add a new test case to your collection.</p>
+                    <a href="/create-testcase" class="btn">Create New Test Case</a>
+                </div>
+
+                <div class="card">
+                    <h3>View Test Cases</h3>
+                    <p>See all test cases you've added.</p>
+                    <a href="/testcases" class="btn">View All</a>
+                </div>
+
+                <!-- <div class="card">
+                    <h3>Account Settings</h3>
+                    <p>Update your email, password, or preferences.</p>
+                    <a href="/settings" class="btn">Settings</a>
+                </div> -->
+
+            </section>
+        </main>
+
+    </div>
+
+</body>
+</html>

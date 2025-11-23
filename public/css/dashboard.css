@@ -1,0 +1,278 @@
+/* ===== Base ===== */
+:root{
+  --bg: #0e005c;
+  --panel: #1f2a48;
+  --muted-panel: #273556;
+  --accent: #4ea1ff;
+  --btn: #618c96;
+  --btn-hover: #4d6f78;
+  --text: #ffffff;
+  --subtext: #d6e1ff;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  margin: 0;
+  padding: 0;
+}
+
+/* ===== Topbar / Header ===== */
+/* support for both .topbar and .top-bar naming used in different templates */
+.topbar,
+.top-bar {
+  width: 100%;
+  background: var(--panel);
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+.logo { font-size: 1.4rem; color: var(--text); margin: 0; }
+
+/* search input used in header */
+.search-input {
+  width: 320px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: none;
+  background: #0f213b;
+  color: var(--text);
+}
+
+/* header icons */
+.icon-btn {
+  color: var(--text);
+  margin-left: 12px;
+  font-size: 1.15rem;
+}
+
+/* fallback top-nav (simple inline nav) */
+.top-nav {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+/* ===== Global nav button (used across app) ===== */
+.nav-btn {
+  padding: 8px 12px;
+  background: var(--panel);
+  color: var(--text);
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  border: 1px solid rgba(255,255,255,0.03);
+}
+
+.nav-btn:hover { background: var(--muted-panel); }
+
+.logout { background: #c0392b; border-color: rgba(0,0,0,0.1); }
+.logout:hover { background: #e74c3c; }
+
+/* ===== Layout wrapper & sidebar (dashboard.ejs) ===== */
+.wrapper {
+  display: flex;
+  min-height: calc(100vh - 60px);
+}
+
+.sidebar {
+  width: 220px;
+  background: #162238; /* slightly darker */
+  padding: 20px 12px;
+  height: calc(100vh - 60px);
+}
+
+.sidebar-search input {
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: none;
+  background: #0f213b;
+  color: var(--text);
+}
+
+.sidebar-nav {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sidebar-nav a {
+  padding: 10px 14px;
+  color: var(--text);
+  text-decoration: none;
+  border-radius: 6px;
+}
+
+.sidebar-nav a:hover { background: #243359; }
+
+/* ===== Main content ===== */
+.content {
+  flex-grow: 1;
+  padding: 28px;
+}
+
+/* dashboard cards */
+.dashboard-cards {
+  display: flex;
+  gap: 18px;
+  margin-top: 18px;
+  flex-wrap: wrap;
+}
+.card {
+  background: var(--panel);
+  padding: 18px;
+  border-radius: 12px;
+  width: 260px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+}
+.card h3 { margin: 0 0 8px 0; }
+.card p { color: var(--subtext); }
+
+/* common button */
+.btn,
+.back-btn,
+.edit-btn {
+  display: inline-block;
+  padding: 10px 14px;
+  background: var(--btn);
+  color: var(--text);
+  text-decoration: none;
+  border-radius: 6px;
+}
+.btn:hover, .back-btn:hover, .edit-btn:hover { background: var(--btn-hover); }
+
+/* ===== Test Cases Table (tc-table) ===== */
+.tc-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background: var(--panel);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+}
+
+.tc-table th {
+  background: var(--muted-panel);
+  color: var(--text);
+  padding: 12px 14px;
+  text-align: left;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.tc-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+  color: var(--subtext);
+  vertical-align: top;
+}
+
+.tc-table tr:hover { background: rgba(255,255,255,0.02); }
+
+/* small action buttons */
+.view-btn {
+  display: inline-block;
+  padding: 6px 10px;
+  background: #8e44ad;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 0.85rem;
+}
+.view-btn:hover { background: #9b59b6; }
+
+/* ===== Filters ===== */
+.filters { margin-top: 12px; margin-bottom: 14px; }
+.filters a { margin-right: 12px; color: var(--accent); text-decoration: none; font-weight: 600; }
+.filters a:hover { text-decoration: underline; }
+
+/* ===== Status badges ===== */
+.status {
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  display: inline-block;
+  text-transform: capitalize;
+}
+.status.in-progress { background: #f39c12; color: #000; }
+.status.passed      { background: #27ae60; color: #fff; }
+.status.failed      { background: #c0392b; color: #fff; }
+.status.not-started { background: #95a5a6; color: #032; }
+
+/* ===== Forms (create / edit) ===== */
+.form-card {
+  background: var(--panel);
+  padding: 24px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.form-card label { font-weight: 700; color: var(--text); }
+.form-card input,
+.form-card select,
+.form-card textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  background: #243359;
+  color: var(--text);
+}
+.form-card textarea { min-height: 120px; resize: vertical; }
+
+/* save button */
+.save-btn {
+  padding: 12px 18px;
+  background: var(--accent);
+  color: #032;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 700;
+}
+.save-btn:hover { filter: brightness(0.95); }
+
+/* ===== Details page ===== */
+.details-container {
+  max-width: 900px;
+  margin: 28px auto;
+  padding: 24px;
+  border-radius: 12px;
+  background: var(--panel);
+}
+.details-title { font-size: 1.6rem; margin: 0 0 8px 0; }
+.details-date { color: var(--subtext); margin-bottom: 18px; }
+.details-section { margin-bottom: 18px; }
+.details-label { font-weight: 800; color: var(--text); }
+.details-box {
+  margin-top: 8px;
+  background: #243359;
+  padding: 14px;
+  border-radius: 8px;
+  white-space: pre-wrap;
+  color: var(--subtext);
+}
+
+/* details buttons area */
+.details-buttons { margin-top: 20px; display:flex; gap: 10px; }
+
+/* ===== Responsive ===== */
+@media (max-width: 900px) {
+  .wrapper { flex-direction: column; }
+  .sidebar { width: 100%; height: auto; }
+  .tc-table th, .tc-table td { padding: 10px; font-size: 0.95rem; }
+  .content, .details-container { padding: 16px; margin: 16px; }
+}
