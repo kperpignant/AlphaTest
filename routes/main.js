@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const passport = require("passport");
 const TestCase = require("../models/TestCase");
+const upload = require("../middleware/multer");
+const testcaseController = require("../controllers/testcaseController");
 
 //make sure the user is logged in to do stuff
 // Protect middleware
@@ -70,6 +72,8 @@ router.get("/testcases", isLoggedIn, async (req, res) => {//added isLoggedIn for
     user: req.user
   });
 });
+
+router.post("/testcases/:id/upload", upload.single("attachment"), testcaseController.uploadFile);
 
 // Single test case detail page
 router.get("/testcases/:id", isLoggedIn, async (req, res) => {

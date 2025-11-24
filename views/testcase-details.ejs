@@ -49,6 +49,21 @@
       <a href="/testcases" class="btn btn-back">Back</a>
     </div>
 
+    <h3>Attachments</h3>
+
+  <form action="/testcases/<%= test._id %>/upload" method="POST" enctype="multipart/form-data">
+    <input type="file" name="attachment" required>
+    <button class="btn">Upload</button>
+  </form>
+
+  <ul>
+    <% test.attachments.forEach(file => { %>
+      <li>
+        <a href="<%= file.url %>" target="_blank">View File</a>
+      </li>
+    <% }) %>
+  </ul>
+  
   </div>
 
 </body>
