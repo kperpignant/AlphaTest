@@ -59,19 +59,53 @@ router.get("/create-testcase", isLoggedIn, (req, res) => {
 });
 
 //pull testcases api and render and sort them
-router.get("/testcases", isLoggedIn, async (req, res) => {//added isLoggedIn for security reasons
-  const sort = req.query.sort || "createdAt";
 
-  const testcases = await TestCase.find().sort({
-    status: sort === "status" ? 1 : undefined,
-    createdAt: sort === "createdAt" ? -1 : undefined
-  });
+// router.get("/testcases", isLoggedIn, async (req, res) => {//added isLoggedIn for security reasons
+//   const sort = req.query.sort || "createdAt";
 
-  res.render("testcases", { 
+//   const testcases = await TestCase.find().sort({
+//     status: sort === "status" ? 1 : undefined,
+//     createdAt: sort === "createdAt" ? -1 : undefined
+//   });
+
+//   res.render("testcases", { 
+//     cases: testcases,
+//     user: req.user
+//   });
+// });
+
+router.get("/testcases", isLoggedIn, async (req,res) => {//get route to testcases and require user to be logged in
+  const sort = req.query.sort || "createdAt"; //sorting by createdAt time. Checks if the url is trying to sort by createdAt
+  let testcases;
+  if(sort === "status") {
+    testcases = await TestCase.aggregate([//aggregate() instead of sort()
+      {
+       $addFields: {//create a new, temporary field called statusOrder and work with that
+        statusOrder: {//because mongoDB only sorts alphabetically, assign existing fields a numeric value and sort by that
+          $switch: {
+            branches: [
+              {case: {$eq: ["$status", "not-started"]}, then: 1},//'if case is true, assign this number' then return that number
+              {case: {$eq: ["$status", "in-progress"]}, then: 2},
+              {case: {$eq: ["$status", "passed"]}, then: 3},
+              {case: {$eq: ["$status", "failed"]}, then: 4}
+            ],
+            default: 5 //if all the above fail, assign 5, wildcard value- move it to the bottom of the list/last for errors/typos/null/etc
+          }
+        }
+       } 
+      },
+      {$sort: {statusOrder: 1, createdAt: -1}}//then, sort by these two criteria instead
+    ]);//sort by the numerical status order and createdAt = -1 being newest first within each status group
+  } else {
+    testcases = await TestCase.find().sort({createdAt: -1}); //if not sorting by status, sort by most recent
+  }
+  res.render("testcases", {
     cases: testcases,
-    user: req.user
+    user:req.user
   });
 });
+
+
 
 router.post("/testcases/:id/upload", upload.single("attachment"), testcaseController.uploadFile);
 
