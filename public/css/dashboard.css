@@ -178,6 +178,24 @@ body {
   vertical-align: top;
 }
 
+.titleText a {
+  color: var(--subtext);
+  text-decoration: none; 
+  font-weight: 600;
+}
+
+.titleText a:hover {
+  text-decoration: none;
+  color: var(--accent);
+}
+
+.signup-card {
+  color: var(--subtext);
+}
+.signupText {
+  color: var(--subtext);
+}
+
 .tc-table tr:hover { background: rgba(255,255,255,0.02); }
 
 /* small action buttons */

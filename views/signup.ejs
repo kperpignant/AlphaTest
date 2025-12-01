@@ -8,6 +8,7 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="css/login.css" />
+  <link rel="stylesheet" href="css/dashboard.css" />
 </head>
 <body>
   <div class="signup-container">
@@ -17,11 +18,11 @@
 
       <form class="signup-form" action="/signup" method="POST">
         <div class="form-group">
-            <label>Username</label>
+            <label class="signupText">Username</label>
             <input type="text" class="form-control" name="username" required>
         </div>
         <div class="form-group">
-          <label for="email">Email</label>
+          <label class="signupText" for="email">Email</label>
           <% if (message) { %>
             <p class="error"><%= message %></p>
           <% } %>
@@ -29,7 +30,7 @@
         </div>
 
         <div class="form-group">
-          <label for="password">Password</label>
+          <label class="signupText" for="password">Password</label>
           <input type="password" id="password" name="password" placeholder="Enter your password" required/>
         </div>
 

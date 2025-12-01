@@ -4,6 +4,7 @@ const passport = require("passport");
 const TestCase = require("../models/TestCase");
 const upload = require("../middleware/multer");
 const testcaseController = require("../controllers/testcaseController");
+const User = require("../models/User");
 
 //make sure the user is logged in to do stuff
 // Protect middleware
@@ -54,9 +55,59 @@ router.get("/testcase", isLoggedIn, (req, res) => {
 });
 
 //create a testcase
-router.get("/create-testcase", isLoggedIn, (req, res) => {
-  res.render("create-testcase", { user: req.user });
+// router.get("/create-testcase", isLoggedIn, async (req, res) => {
+//   try {
+//     const users = await User.find();  // <-- NEW
+//     res.render("create-testcase", {
+//       user: req.user,
+//       users   // <-- pass users to the view
+//     });
+//   } catch (err) {
+//     console.log(err);
+//     res.send("Error loading create testcase page");
+//   }
+// });
+
+router.get("/create-testcase", isLoggedIn, async (req, res) => {
+  const users = await User.find({}, "local.username _id"); // Fetch all users
+
+  console.log("Users returned to EJS:", users);   // <--- IMPORTANT
+
+  res.render("create-testcase", {
+    user: req.user,
+    users // send to EJS
+  });
 });
+
+
+
+
+router.post("/testcases/create", async (req, res) => {
+  try {
+    const labels = req.body.labels
+      ? req.body.labels.split(",").map(t => t.trim())
+      : [];
+
+    await TestCase.create({
+      title: req.body.title,
+      description: req.body.description,
+      steps: req.body.steps,
+      expectedResult: req.body.expectedResult,
+      estimate: req.body.estimate,
+      type: req.body.type,
+      priority: req.body.priority,
+      preconditions: req.body.preconditions,
+      labels,
+      assignedTo: req.body.assignedTo || null
+    });
+
+    res.redirect("/testcases");
+  } catch (err) {
+    console.log(err);
+    res.send("Error creating test case");
+  }
+});
+
 
 //pull testcases api and render and sort them
 
@@ -109,10 +160,61 @@ router.get("/testcases", isLoggedIn, async (req,res) => {//get route to testcase
 
 router.post("/testcases/:id/upload", upload.single("attachment"), testcaseController.uploadFile);
 
+//Edit test cases - moved up to avoid 404
+router.post("/testcases/:id/edit", async (req, res) => {
+  try {
+    let labels = req.body.labels
+      ? req.body.labels.split(",").map(l => l.trim())
+      : [];
+
+    await TestCase.findByIdAndUpdate(req.params.id, {
+      title: req.body.title,
+      description: req.body.description,
+      steps: req.body.steps,
+      expectedResult: req.body.expectedResult,
+      estimate: req.body.estimate,
+      type: req.body.type,
+      priority: req.body.priority,
+      preconditions: req.body.preconditions,
+      labels,
+      assignedTo: req.body.assignedTo || null,
+      status: req.body.status
+    });
+
+    res.redirect(`/testcases/${req.params.id}`);
+  } catch (err) {
+    console.log(err);
+    res.send("Error saving test case changes");
+  }
+});
+
+router.get("/testcases/:id/edit", isLoggedIn, async (req, res) => {
+  try {
+    //const test = await TestCase.findById(req.params.id);
+    const test = await TestCase.findById(req.params.id).populate("assignedTo");//hopefully fixes the issue where users aren't populating
+    //const users = await User.find();
+    //const users = await User.find({}, "local.username _id");
+    const users = await User.find();
+
+    if (!test) return res.status(404).send("Test case not found");
+
+    //res.render("edit-testcase", { test, users });
+    res.render("edit-testcase", {
+      test,
+      users,
+      user: req.user
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Could not load edit page");
+  }
+});
+
+
 // Single test case detail page
 router.get("/testcases/:id", isLoggedIn, async (req, res) => {
   try {
-    const test = await TestCase.findById(req.params.id);
+    const test = await TestCase.findById(req.params.id).populate("assignedTo");
 
     if (!test) return res.status(404).send("Test case not found");
 
@@ -124,26 +226,6 @@ router.get("/testcases/:id", isLoggedIn, async (req, res) => {
     console.error("Error loading testcase:", err);
     res.status(500).send("Could not load test case");
   }
-});
-
-//Edit test cases
-router.get("/testcases/:id/edit", async (req, res) => {
-  const test = await TestCase.findById(req.params.id);
-  res.render("edit-testcase", { test });
-});
-
-router.post("/testcases/:id/edit", async (req, res) => {
-  const { title, description, steps, expectedResult, status } = req.body;
-
-  await TestCase.findByIdAndUpdate(req.params.id, {
-    title,
-    description,
-    steps,
-    expectedResult,
-    status
-  });
-
-  res.redirect(`/testcases/${req.params.id}`);
 });
 
 // DELETE a test case

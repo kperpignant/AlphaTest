@@ -30,6 +30,26 @@
     </div>
 
     <div class="details-section">
+      <span class="details-label">Estimate:</span>
+      <div class="details-box"><%= test.estimate || "N/A" %></div>
+    </div>
+
+    <div class="details-section">
+      <span class="details-label">Priority:</span>
+      <div class="details-box priority-<%= test.priority %>"><%= test.priority %></div>
+    </div>
+
+    <div class="details-section">
+      <span class="details-label">Type:</span>
+      <div class="details-box"><%= test.type %></div>
+    </div>
+
+    <div class="details-section">
+      <span class="details-label">Pre-conditions:</span>
+      <div class="details-box"><%= test.preconditions || "None" %></div>
+    </div>
+
+    <div class="details-section">
       <span class="details-label">Steps:</span>
       <div class="details-box"><%= test.steps %></div>
     </div>
@@ -37,6 +57,15 @@
     <div class="details-section">
       <span class="details-label">Expected Result:</span>
       <div class="details-box"><%= test.expectedResult %></div>
+    </div>
+
+    <div class="details-section">
+      <span class="details-label">Labels:</span>
+      <div class="details-box">
+        <% test.labels.forEach(tag => { %>
+          <span class="tag"><%= tag %></span>
+        <% }) %>
+      </div>
     </div>
 
     <a href="/testcases/<%= test._id %>/edit" class="edit-btn">Edit</a>
@@ -63,6 +92,13 @@
       </li>
     <% }) %>
   </ul>
+
+  <div class="details-section">
+    <span class="details-label">Assigned To:</span>
+    <div class="details-box">
+      <%= test.assignedTo ? test.assignedTo.local.username : "Unassigned" %>
+    </div>
+  </div>
   
   </div>
 

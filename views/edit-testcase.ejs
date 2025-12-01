@@ -25,11 +25,36 @@
       <label>Description</label>
       <textarea name="description" required><%= test.description %></textarea>
 
+      <label>Estimate</label>
+      <input type="text" name="estimate" value="<%= test.estimate || '' %>">
+
+      <label>Priority</label>
+      <select name="priority">
+        <option value="low" <%= test.priority === "low" ? "selected" : "" %>>Low</option>
+        <option value="medium" <%= test.priority === "medium" ? "selected" : "" %>>Medium</option>
+        <option value="high" <%= test.priority === "high" ? "selected" : "" %>>High</option>
+        <option value="critical" <%= test.priority === "critical" ? "selected" : "" %>>Critical</option>
+      </select>
+
+      <label>Type</label>
+      <select name="type">
+        <option value="functional" <%= test.type === "functional" ? "selected" : "" %>>Functional</option>
+        <option value="regression" <%= test.type === "regression" ? "selected" : "" %>>Regression</option>
+        <option value="exploratory" <%= test.type === "exploratory" ? "selected" : "" %>>Exploratory</option>
+        <option value="performance" <%= test.type === "performance" ? "selected" : "" %>>Performance</option>
+      </select>
+
+      <label>Pre-conditions</label>
+      <textarea name="preconditions"><%= test.preconditions || '' %></textarea>
+
       <label>Steps</label>
       <textarea name="steps" required><%= test.steps %></textarea>
 
       <label>Expected Result</label>
       <textarea name="expectedResult" required><%= test.expectedResult %></textarea>
+
+      <label>Labels (comma-separated)</label>
+      <input type="text" name="labels" value="<%= test.labels ? test.labels.join(', ') : '' %>">
 
       <label>Status</label>
       <select name="status">
@@ -39,8 +64,27 @@
         <option value="failed" <%= test.status === "failed" ? "selected" : "" %>>Failed</option>
       </select>
 
-      <br>
+      <!-- <label>Assign to User</label>
+      <select name="assignedTo">
+        <option value="">Unassigned</option>
+          <% users.forEach(user => { %>
+        <option value="<%= user._id %>"><%= user.username %></option>
+          <% }) %>
+      </select> -->
+      <label>Assign to User</label>
+      <select id="assignedTo" name="assignedTo" class="form-control">
+        <option value="">Unassigned</option>
+          <% users.forEach(u => { %>
+        <option value="<%= u._id %>" 
+        <%= test.assignedTo && test.assignedTo.equals(u._id) ? "selected" : "" %>>
+        <%= u.local.username %>
+        </option>
+        <% }) %>
+      </select>
+
+      <br><br>
       <button class="save-btn">Save Changes</button>
+
     </form>
 
     <br>

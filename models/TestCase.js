@@ -7,6 +7,27 @@ const testCaseSchema = new mongoose.Schema({
   description: String,
   steps: String,
   expectedResult: String,
+  estimate: String,
+  type: {
+    type: String,
+    enum: ["functional", "regression", "smoke", "sanity", "exploratory", "unit test", "other"],
+    default: "functional"
+  },
+  priority: {
+    type: String,
+    enum: ["low", "medium", "high", "critical"],
+    default: "medium"
+  },
+  preconditions: String,
+  labels: {
+    type: [String],
+    default:[]
+  },
+  assignedTo: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    default: null
+  },
   attachments: [
     {
       url: String,

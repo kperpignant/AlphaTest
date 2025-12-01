@@ -58,6 +58,7 @@
 </head>
 
 <body>
+  <% const currentTest = typeof test !== 'undefined' ? test : {}; %>
 
   <!-- Top Navigation -->
   <div class="top-nav">
@@ -73,11 +74,58 @@
     <form id="testcase-form">
       <input type="text" id="title" placeholder="Title" required />
       <textarea id="description" placeholder="Description" required></textarea>
+      <label>Pre-conditions</label>
+      <textarea name="preconditions"></textarea>
       <textarea id="steps" placeholder="Steps" required></textarea>
       <textarea id="expectedResult" placeholder="Expected Result" required></textarea>
+      
 
+      <label>Estimate (time or points)</label>
+      <input type="text" name="estimate">
+      <label>Type</label>
+      <select name="type">
+        <option value="functional">Functional</option>
+        <option value="regression">Regression</option>
+        <option value="smoke">Smoke</option>
+        <option value="sanity">Sanity</option>
+        <option value="exploratory">Exploratory</option>
+        <option value="other">Other</option>
+      </select>
+      <label>Priority</label>
+      <select name="priority">
+        <option value="low">Low</option>
+        <option value="medium">Medium</option>
+        <option value="high">High</option>
+        <option value="critical">Critical</option>
+      </select>
+      <hr>
+      <label>Labels (comma separated)</label>
+      <input type="text" name="labels[]">
+    
+      <!-- <label>Assign to User</label>
+      <select name="assignedTo">
+        <option value="">Unassigned</option>
+          <% users.forEach(user => { %>
+        <option value="<%= user._id %>"><%= user.username %></option>
+          <% }) %>
+      </select>
       <button type="submit">Save Test Case</button>
+      <p class="message" id="message"></p> -->
+
+      <div class="form-group">
+        <label for="assignedTo">Assign To</label>
+        <select id="assignedTo" name="assignedTo" class="form-control">
+          <option value="">Unassigned</option>
+          <% users.forEach(u => { %>
+            <option value="<%= u._id %>"
+              <%= currentTest.assignedTo && currentTest.assignedTo.equals(u._id) ? "selected" : "" %>>
+              <%= u.local.username %>
+            </option>
+          <% }) %>
+        </select>
+        <button type="submit">Save Test Case</button>
       <p class="message" id="message"></p>
+      </div>
     </form>
   </div>
 

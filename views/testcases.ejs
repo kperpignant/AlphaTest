@@ -21,9 +21,9 @@
         <a href="/logout" class="nav-btn logout">Logout</a>
       </div>
 
-      <div class="user-info">
+      <!-- <div class="user-info">
         <span>Logged in as <%= user.username %></span>
-      </div>
+      </div> -->
     </header>
 
     <main>
@@ -54,11 +54,11 @@
               </tr>
             </thead>
 
-            <tbody>
+            <tbody class="tbody">
               <% cases.forEach(tc => { %>
                 <tr>
 
-                  <td>
+                  <td class="titleText">
                     <a href="/testcases/<%= tc._id %>"><%= tc.title %></a>
                   </td>
 
