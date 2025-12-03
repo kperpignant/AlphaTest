@@ -1,3 +1,4 @@
+<!-- ----ChatGPT Helped---- -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,36 +11,30 @@
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
         crossorigin="anonymous"
     />
-
-    <!-- Your dashboard CSS -->
     <link rel="stylesheet" href="css/dashboard.css" />
     <link rel="stylesheet" href="/css/nav.css" />
 </head>
 <body>
 
-    <!-- Top Navbar -->
-    <header class="topbar">
-        <div class="topbar-left">
-            <h2 class="logo">AlphaTest</h2>
+    <header class="top-bar">
+        <div class="top-left">
+            <a href="/dashboard"><img src="/img/alphatest3.png" class="nav-logo" alt="Logo"></a>
+            <h1 class="logo">Dashboard</h1>
         </div>
-
         <div class="topbar-center">
             <input type="text" placeholder="Search test cases..." class="search-input" />
         </div>
-
         <div class="top-nav">
-  <a href="/dashboard" class="nav-btn">Dashboard</a>
-  <a href="/testcases" class="nav-btn">Test Cases</a>
-  <a href="/create-testcase" class="nav-btn">New Test Case</a>
-  <a href="/logout" class="nav-btn logout">Logout</a>
-</div>
-
+            <a href="/dashboard" class="nav-btn">Dashboard</a>
+            <a href="/testcases" class="nav-btn">Test Cases</a>
+            <a href="/create-testcase" class="nav-btn">New Test Case</a>
+            <a href="/logout" class="nav-btn logout">Logout</a>
+        </div>
     </header>
 
-    <!-- Main Wrapper -->
     <div class="wrapper">
 
-        <!-- Sidebar -->
+
         <aside class="sidebar">
             <div class="sidebar-search">
                 <input type="text" placeholder="Search..." />
@@ -52,7 +47,7 @@
             </nav>
         </aside>
 
-        <!-- MAIN CONTENT -->
+
         <main class="content">
             <h1>Welcome, <%= user.local.username %>!</h1>
             <p>Select an option from the sidebar to get started.</p>
@@ -71,16 +66,15 @@
                     <a href="/testcases" class="btn">View All</a>
                 </div>
 
-                <!-- <div class="card">
-                    <h3>Account Settings</h3>
-                    <p>Update your email, password, or preferences.</p>
-                    <a href="/settings" class="btn">Settings</a>
-                </div> -->
-
             </section>
         </main>
 
     </div>
+
+<footer class="site-footer">
+  <p>© <%= new Date().getFullYear() %> AlphaTest — All Rights Reserved.</p>
+</footer>
+
 
 </body>
 </html>

@@ -1,3 +1,4 @@
+<!-- ----ChatGPT Helped---- -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,12 +8,18 @@
 </head>
 
 <body>
-  <div class="top-nav">
-    <a href="/dashboard" class="nav-btn">Dashboard</a>
-    <a href="/testcases" class="nav-btn">All Test Cases</a>
-    <a href="/logout" class="nav-btn logout">Logout</a>
-  </div>
+  <header class="top-bar">
+      <div class="top-left">
+        <a href="/dashboard"><img src="/img/alphatest3.png" class="nav-logo" alt="Logo"></a>
+        <h1>Test Cases</h1>
+      </div>
 
+      <div class="top-nav">
+        <a href="/dashboard" class="nav-btn">Dashboard</a>
+        <a href="/testcases" class="nav-btn">All Test Cases</a>
+        <a href="/logout" class="nav-btn logout">Logout</a>
+      </div>
+    </header>
   <div class="content">
 
     <h1>Edit Test Case</h1>
@@ -90,5 +97,11 @@
     <br>
     <a href="/testcases/<%= test._id %>" class="back-btn">⬅ Back</a>
   </div>
+
+<footer class="site-footer">
+  <p>© <%= new Date().getFullYear() %> AlphaTest — All Rights Reserved.</p>
+</footer>
+
+
 </body>
 </html>

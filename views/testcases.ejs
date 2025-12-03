@@ -11,22 +11,21 @@
 <body>
 
   <div class="container">
-
     <header class="top-bar">
-      <h1>Test Cases</h1>
+      <div class="top-left">
+        <a href="/dashboard"><img src="/img/alphatest3.png" class="nav-logo" alt="Logo"></a>
+        <h1>Test Cases</h1>
+      </div>
 
       <div class="top-nav">
         <a href="/dashboard" class="nav-btn">Dashboard</a>
         <a href="/create-testcase" class="nav-btn">New Test Case</a>
         <a href="/logout" class="nav-btn logout">Logout</a>
       </div>
-
-      <!-- <div class="user-info">
-        <span>Logged in as <%= user.username %></span>
-      </div> -->
     </header>
 
-    <main>
+
+    <main class="table-wrapper">
 
       <a href="/create-testcase" class="btn primary">+ New Test Case</a>
 
@@ -42,8 +41,8 @@
           <p>No test cases found.</p>
 
         <% } else { %>
-
-          <table class="tc-table">
+          <div >
+            <table class="tc-table">
             <thead>
               <tr>
                 <th>Title</th>
@@ -81,6 +80,8 @@
             </tbody>
 
           </table>
+          </div>
+          
 
         <% } %>
 
@@ -89,6 +90,11 @@
     </main>
 
   </div>
+
+<footer class="site-footer">
+  <p>© <%= new Date().getFullYear() %> AlphaTest — All Rights Reserved.</p>
+</footer>
+
 
 </body>
 </html>

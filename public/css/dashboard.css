@@ -1,3 +1,4 @@
+/*CHATGPT HELPED*/
 /* ===== Base ===== */
 :root{
   --bg: #0e005c;
@@ -19,6 +20,9 @@ body {
   color: var(--text);
   margin: 0;
   padding: 0;
+}
+.testcasesBody {
+  
 }
 
 /* ===== Topbar / Header ===== */
@@ -160,6 +164,7 @@ body {
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+  /* padding: 0% 10% 0% 10%; */
 }
 
 .tc-table th {
@@ -176,6 +181,10 @@ body {
   border-bottom: 1px solid rgba(255,255,255,0.03);
   color: var(--subtext);
   vertical-align: top;
+}
+
+.table-wrapper {
+  padding: 1% 10% 0 10%;
 }
 
 .titleText a {

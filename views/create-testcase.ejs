@@ -1,3 +1,4 @@
+<!-- ----ChatGPT Helped---- -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -60,14 +61,16 @@
 <body>
   <% const currentTest = typeof test !== 'undefined' ? test : {}; %>
 
-  <!-- Top Navigation -->
   <div class="top-nav">
-    <a href="/dashboard" class="nav-btn">Dashboard</a>
-    <a href="/testcases" class="nav-btn">All Test Cases</a>
-    <a href="/logout" class="nav-btn logout">Logout</a>
+    <div class="top-left">
+      <a href="/dashboard"><img src="/img/alphatest3.png" class="nav-logo" alt="Logo"></a>
+      <h1 class="logo">Create a Test Case</h1>
+    </div>
+      <a href="/dashboard" class="nav-btn">Dashboard</a>
+      <a href="/testcases" class="nav-btn">All Test Cases</a>
+      <a href="/logout" class="nav-btn logout">Logout</a>
   </div>
 
-  <!-- Form Container -->
   <div class="create-container">
     <h2>Create Test Case</h2>
 
@@ -102,15 +105,6 @@
       <label>Labels (comma separated)</label>
       <input type="text" name="labels[]">
     
-      <!-- <label>Assign to User</label>
-      <select name="assignedTo">
-        <option value="">Unassigned</option>
-          <% users.forEach(user => { %>
-        <option value="<%= user._id %>"><%= user.username %></option>
-          <% }) %>
-      </select>
-      <button type="submit">Save Test Case</button>
-      <p class="message" id="message"></p> -->
 
       <div class="form-group">
         <label for="assignedTo">Assign To</label>
@@ -157,6 +151,11 @@
       }
     });
   </script>
+
+<footer class="site-footer">
+  <p>© <%= new Date().getFullYear() %> AlphaTest — All Rights Reserved.</p>
+</footer>
+
 
 </body>
 </html>

@@ -1,3 +1,4 @@
+//----ChatGPT Helped----//
 // config/database.js
 require('dotenv').config(); // load env vars here too (important for Render)
 

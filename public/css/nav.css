@@ -1,3 +1,23 @@
+.top-bar {
+  background: #1f1f2e;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.top-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: white;
+}
+
+.nav-logo {
+  height: 40px;
+  width: auto;
+}
+
 .top-nav {
   background: #1f1f2e;
   padding: 10px 20px;
@@ -29,4 +49,20 @@
 .content {
   padding: 30px;
   color: white;
+}
+
+.site-footer {
+  margin-top: 40px;
+  padding: 15px 20px;
+  background: #1f1f2e;
+  color: #ccc;
+  text-align: center;
+
+  border-top: 1px solid #343454;
+  font-size: 14px;
+}
+
+.site-footer p {
+  margin: 0;
+  opacity: 0.8;
 }
