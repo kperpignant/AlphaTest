@@ -44,6 +44,16 @@ router.post("/signup",passport.authenticate("local-signup", {
     failureFlash: true
   })
 );
+// GET logout
+router.get("/logout", (req, res, next) => {
+  req.logout(function (err) {
+    if (err) { return next(err); }
+    req.session.destroy(() => {
+      res.redirect("/login");
+    });
+  });
+});
+
 
 // Dashboard
 router.get("/dashboard", isLoggedIn, (req, res) => {
@@ -79,9 +89,6 @@ router.get("/create-testcase", isLoggedIn, async (req, res) => {
     users // send to EJS
   });
 });
-
-
-
 
 router.post("/testcases/create", async (req, res) => {
   try {
